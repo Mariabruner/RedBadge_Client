@@ -1,26 +1,45 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Auth from './auth/Auth'
+import { isPropertySignature } from 'typescript';
 
-function App() {
-  return (
+type props = {
+ testProp?: string
+}
+
+type state = {
+ sessionToken: string | null
+}
+
+class App extends React.Component<props, state>{
+
+  constructor(props: props){
+    super(props)
+    this.state = {
+      sessionToken: ""
+    }
+  }
+
+  //create update token function
+  getToken = () => {
+    if (localStorage.getItem("token")){
+      this.setState({sessionToken: localStorage.getItem("token")})
+    }
+  }
+
+  updateToken = (newToken: string) => {
+    localStorage.setItem('token', newToken)
+    this.setState({sessionToken: newToken})
+    console.log(this.state.sessionToken)
+  }
+
+  render() {
+    return(
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Auth />
     </div>
-  );
+  )};
 }
 
 export default App;
