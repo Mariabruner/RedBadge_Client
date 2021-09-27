@@ -1,8 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Auth from './auth/Auth'
-import { isPropertySignature } from 'typescript';
+import Sitebar from './components/Sitebar'
+import { 
+  BrowserRouter as Router
+} from 'react-router-dom'
 
 type props = {
  testProp?: string
@@ -21,23 +22,25 @@ class App extends React.Component<props, state>{
     }
   }
 
-  //create update token function
   getToken = () => {
     if (localStorage.getItem("token")){
       this.setState({sessionToken: localStorage.getItem("token")})
     }
   }
 
-  updateToken = (newToken: string) => {
+
+  updateToken = (newToken: string):void => {
     localStorage.setItem('token', newToken)
     this.setState({sessionToken: newToken})
-    console.log(this.state.sessionToken)
   }
+
 
   render() {
     return(
     <div className="App">
-      <Auth />
+      <Router>
+        <Sitebar updateToken={this.updateToken}/>
+      </Router>
     </div>
   )};
 }
