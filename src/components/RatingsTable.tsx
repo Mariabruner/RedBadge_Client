@@ -1,7 +1,8 @@
-import React, { MouseEventHandler } from 'react'
+import React, { FunctionComponent, MouseEventHandler, ReactElement, ReactNode } from 'react'
 import {
     Table
 } from 'reactstrap'
+import { JsxElement } from 'typescript'
 
 
 type props = {
@@ -9,7 +10,19 @@ type props = {
 }
 
 type state = {
-    accessToken: string | null
+    accessToken: string | null,
+    characterData: character[]
+}
+
+type character = {
+    characterType: string,
+    createdAt: string,
+    fightAppearances: number,
+    id: number,
+    imageURL: string,
+    name: string,
+    updatedAt: string,
+    votes: number
 }
 
 class RatingsTable extends React.Component<props, state> {
@@ -18,21 +31,43 @@ class RatingsTable extends React.Component<props, state> {
 
         this.state = {
             accessToken: localStorage.getItem("token"),
+            characterData: []
         }
     }
 
     getCharacters = () => {
-        fetch( `http://localhost:3000/character/`, {
+        fetch(`http://localhost:3000/character/`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${this.state.accessToken}`
             })
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({ characterData: data })
+            })
+    }
+
+
+    createTable = () : ReactNode  => {
+        
+
+        let list: ReactElement[] = []
+
+        list = this.state.characterData.map(function (item: character) {
+            let winPercentage = item.votes/item.fightAppearances
+            return (
+                <tr>
+                    <td>{item.name}</td>
+                    <td>{item.votes}</td>
+                    <td>{winPercentage}</td>
+                </tr>
+            )
         })
+
+        return list
+
     }
 
     render() {
@@ -42,22 +77,13 @@ class RatingsTable extends React.Component<props, state> {
                 <Table>
                     <thead>
                         <tr>
-                            <th>Ranking</th>
                             <th>Character</th>
+                            <th>Votes </th>
                             <th>Win %</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Marlee</td>
-                            <td>100%</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Angel</td>
-                            <td>0%</td>
-                        </tr>
+                        {this.createTable()}
                     </tbody>
                 </Table>
             </div>
@@ -66,6 +92,7 @@ class RatingsTable extends React.Component<props, state> {
 
     componentDidMount() {
         this.getCharacters()
+        this.createTable()
     }
 }
 

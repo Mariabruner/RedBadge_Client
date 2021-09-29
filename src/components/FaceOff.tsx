@@ -49,14 +49,8 @@ class FaceOff extends React.Component<props, state> {
                     randomNumber2 = Math.floor(Math.random() * data.length)
                 }
 
-                console.log(randomNumber1, randomNumber2)
-
                 let randomCharacter1 = data[randomNumber1]
                 let randomCharacter2 = data[randomNumber2]
-
-                console.log(randomCharacter1)
-                console.log(randomCharacter2)
-
 
                 if (randomCharacter1.id < randomCharacter2.id){
                     this.setState({
@@ -77,7 +71,6 @@ class FaceOff extends React.Component<props, state> {
                             charTwoName: randomCharacter1.name
                         })
                 }
-                console.log(this.state.charOneId, this.state.charTwoId)
             })
             .catch(err => {
                 console.log(err)
@@ -86,7 +79,6 @@ class FaceOff extends React.Component<props, state> {
 
 
     updateCharacters = (winner: number) => {
-        console.log("character selected")
         //create a new fight if one does not exist
 
         let newEntry = {
@@ -106,7 +98,6 @@ class FaceOff extends React.Component<props, state> {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
             })
             .catch(err => {
                 console.log(err)
@@ -167,7 +158,6 @@ class FaceOff extends React.Component<props, state> {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
             })
             .catch(err => {
                 console.log(err)
@@ -190,7 +180,6 @@ class FaceOff extends React.Component<props, state> {
     componentDidMount() {
         this.getAll()
     }
-
 }
 
 export default FaceOff

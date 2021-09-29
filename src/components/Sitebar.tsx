@@ -14,6 +14,7 @@ import {
 import Auth from '../auth/Auth'
 import FaceOff from './FaceOff'
 import RatingsTable from './RatingsTable'
+import NewCharacter from './NewCharacter'
 
 type props = {
     updateToken(sessionToken: string): void
@@ -55,12 +56,16 @@ class Sitebar extends React.Component<props, state> {
                 <NavItem>
                     <NavLink><Link to="/ratingstable">Ratings Table</Link></NavLink>
                 </NavItem>
+                <NavItem>
+                    <NavLink><Link to="/newcharacter">Submit new Characters</Link></NavLink>
+                </NavItem>
             </Navbar>
 
             <Switch>
                 <Route exact path="/auth"><Auth updateToken={this.props.updateToken}/></Route>
                 <Route exact path="/faceoff"><FaceOff /></Route>
                 <Route exact path="/ratingstable"><RatingsTable /></Route>
+                <Route exact path="/newcharacter"><NewCharacter /></Route>
             </Switch>
             </div>
         )
