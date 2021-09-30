@@ -6,7 +6,7 @@ switch(window.location.hostname) {
         break
 
     case 'meb-fight-game-app.herokuapp.com':
-        APIURL = 'https://meb-fight-game-app.herokuapp.com/'
+        APIURL = 'https://meb-fight-game-app.herokuapp.com'
         break
 }
 
