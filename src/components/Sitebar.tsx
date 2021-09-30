@@ -1,13 +1,8 @@
 import React, { MouseEventHandler } from 'react'
 import { Route, Link, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom'
 import {
-    Collapse,
     Navbar,
     NavLink,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
     Button
 } from 'reactstrap'
 
@@ -25,7 +20,31 @@ type state = {
 }
 
 const barStyle = {
-    "backgroundColor": "#E63946"
+    "backgroundColor": "#E63946",
+    "display": "flex",
+    "height": "6vh",
+    "font-family":  "Hammersmith One"
+}
+
+const NavLinkStyle = {
+    "marginLeft": "10px",
+    "align-self": "center",
+}
+
+const linkStyle = {
+    "color": "#F1FAEE",
+    "text-decoration": "none"
+}
+
+const buttonStyle = {
+    "height": "4vh",
+    "margin-left": "53vw",
+    "align-self": "center",
+    "color": "#1D3557",
+    "backgroundColor": "#F1FAEE",
+    "border": "solid 2px #F1FAEE",
+    "borderRadius": "10px",
+    "font-family": "Hammersmith One",
 }
 
 class Sitebar extends React.Component<props, state> {
@@ -42,23 +61,13 @@ class Sitebar extends React.Component<props, state> {
     }
 
     render() {
-        console.log(this.props.updateToken)
         return (
             <div>
             <Navbar style={barStyle}>
-                <Button onClick={this.clearToken}>Logout</Button>
-                <NavItem>
-                    <NavLink><Link to="/auth">Login/Signup</Link></NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink><Link to="/faceoff">FaceOff</Link></NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink><Link to="/ratingstable">Ratings Table</Link></NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink><Link to="/newcharacter">Submit new Characters</Link></NavLink>
-                </NavItem>
+                    <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/faceoff">Home</Link></NavLink>
+                    <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/ratingstable">Stats</Link></NavLink>
+                    <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/newcharacter"></Link></NavLink>
+                    <Button style = {buttonStyle} onClick={this.clearToken}>Logout</Button>
             </Navbar>
 
             <Switch>

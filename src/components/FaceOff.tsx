@@ -1,5 +1,8 @@
 import React from 'react'
 import { Button } from 'reactstrap'
+import { Link } from 'react-router-dom'
+import NewCharacter from './NewCharacter'
+
 
 type props = {
 
@@ -13,6 +16,52 @@ type state = {
     charTwoId: number,
     charOneName: string,
     charTwoName: string
+}
+
+const pageStyle = {
+    "color": "#1D3557",
+    "backgroundColor": "#F1FAEE",
+    "height": "100vh",
+}
+
+const topDiv = {
+    "padding-top": "5vh",
+    "font-size": "35px",
+    "color": "#1D3557",
+    "font-family": "Black Ops One"
+}
+
+const fightStyle = {
+    "margin-top": "10vh",
+    "display": "flex",
+    "align-content": "center",
+    "font-family": "Hammersmith One"
+}
+
+
+const characterStyle = {
+    "backgroundColor": "#A8DADC",
+    "marginLeft": "auto",
+    "marginRight": "auto",
+    "marginBottom": "7vh",
+    "width": "40vw",
+    "height": "25vh",
+    "color": "#1D3557",
+    "border": "1px solid #F1FAEE",
+    "borderRadius": "10px",
+    "fontSize": "20px",
+    "paddingTop": "5px",
+}
+
+const buttonStyle = {
+    "marginTop": "10vh",
+    "color": "#1D3557",
+    "backgroundColor": "#A8DADC",
+    "border": "solid 2px #F1FAEE",
+    "borderRadius": "10px",
+    "font-family": "Hammersmith One",
+    "text-decoration": "none",
+    "padding": "3px"
 }
 
 
@@ -52,24 +101,24 @@ class FaceOff extends React.Component<props, state> {
                 let randomCharacter1 = data[randomNumber1]
                 let randomCharacter2 = data[randomNumber2]
 
-                if (randomCharacter1.id < randomCharacter2.id){
+                if (randomCharacter1.id < randomCharacter2.id) {
                     this.setState({
-                            charOneImage: randomCharacter1.imageURL,
-                            charTwoImage: randomCharacter2.imageURL,
-                            charOneId: randomCharacter1.id,
-                            charTwoId: randomCharacter2.id,
-                            charOneName: randomCharacter1.name,
-                            charTwoName: randomCharacter2.name
-                        })
-                } else if (randomCharacter1.id > randomCharacter2.id){
+                        charOneImage: randomCharacter1.imageURL,
+                        charTwoImage: randomCharacter2.imageURL,
+                        charOneId: randomCharacter1.id,
+                        charTwoId: randomCharacter2.id,
+                        charOneName: randomCharacter1.name,
+                        charTwoName: randomCharacter2.name
+                    })
+                } else if (randomCharacter1.id > randomCharacter2.id) {
                     this.setState({
-                            charOneImage: randomCharacter2.imageURL,
-                            charTwoImage: randomCharacter1.imageURL,
-                            charOneId: randomCharacter2.id,
-                            charTwoId: randomCharacter1.id,
-                            charOneName: randomCharacter2.name,
-                            charTwoName: randomCharacter1.name
-                        })
+                        charOneImage: randomCharacter2.imageURL,
+                        charTwoImage: randomCharacter1.imageURL,
+                        charOneId: randomCharacter2.id,
+                        charTwoId: randomCharacter1.id,
+                        charOneName: randomCharacter2.name,
+                        charTwoName: randomCharacter1.name
+                    })
                 }
             })
             .catch(err => {
@@ -169,10 +218,28 @@ class FaceOff extends React.Component<props, state> {
 
     render() {
         return (
-            <div>
-                Battle Page!
-                <div onClick={() => this.updateCharacters(this.state.charOneId)} >Character One: {this.state.charOneName} {this.state.charOneImage}</div>
-                <div onClick={() => this.updateCharacters(this.state.charTwoId)}> Character Two: {this.state.charTwoName} {this.state.charTwoImage}</div>
+            <div style={pageStyle}>
+
+                <div style={topDiv}>Who Would Win?</div>
+                <div style={fightStyle}>
+                    <div style={characterStyle} onClick={() => this.updateCharacters(this.state.charOneId)} >
+                        <div>
+                            {this.state.charOneName}
+                        </div>
+                        <div>
+                            {this.state.charOneImage}
+                        </div>
+                    </div>
+                    <div style={characterStyle} onClick={() => this.updateCharacters(this.state.charTwoId)}>
+                        <div>
+                            {this.state.charTwoName}
+                        </div>
+                        <div>
+                            {this.state.charOneImage}
+                        </div>
+                    </div>
+                </div>
+                <Link to="/newcharacter" style={buttonStyle}> Send in Your Character Ideas! </Link>
             </div>
         )
     }

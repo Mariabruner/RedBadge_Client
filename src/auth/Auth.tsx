@@ -13,20 +13,29 @@ type state = {
     modal: boolean
 }
 
+
 //styling
-const modalStyle = {
-    "backgroundColor": "#457B9D",
-    "color": "#F1FAEE",
-    "width": "75vw",
+const pageStyle = {
+    "backgroundColor": "#A8DADC",
+    "color": "#1D3557",
     "height": "100vh",
-    "margin-left": "auto",
-    "margin-right": "auto",
     "font-size": "20px",
+    "marginTop": "0",
+    "paddingTop": "10vh",
+    "font-family": "Hammersmith One",
     "display": "flex",
-    "flex-direction": "row",
-    "justify-content": "center",
+    "flex-direction": "column"
 }
 
+const loginCard = {
+    "backgroundColor": "#F1FAEE",
+    "width": "75vw",
+    "align-self": "center",
+    "border": "2px solid #A8DADC",
+    "border-radius": "10px",
+    "padding": "5px",
+    "marginTop": "10px"
+}
 
 
 class Auth extends React.Component<props, state> {
@@ -39,17 +48,13 @@ class Auth extends React.Component<props, state> {
 
     render() {
         return (
-            <div>
-                <Modal isOpen={true} style={modalStyle} backdrop="static">
-                    <ModalHeader>Who Would Win in a Fight?</ModalHeader>
-                        <p> Create an Account </p> 
-
+            <div style={pageStyle}>
+                        Sign Up or Log In to Continue
+                        <div style = {loginCard}>
                         <Signup updateToken={this.props.updateToken} modal={this.state.modal}/>
-                        <br />
-                        
-                        <p> Already Have an Account? </p>
+                        <br />    
                         <Login updateToken={this.props.updateToken}/>
-                </Modal>
+                        </div>
             </div>
         )
     }

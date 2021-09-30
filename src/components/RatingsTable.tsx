@@ -25,6 +25,37 @@ type character = {
     votes: number
 }
 
+const pageStyle = {
+    "backgroundColor": "#F1FAEE",
+    "height": "100vh",
+    "paddingTop": "5vh"
+}
+
+const tableStyle = {
+    "color": "#1D3557",
+    "fontSize": "20px",
+    "fontFamily": "Hammersmith One",
+    "marginLeft": "auto", 
+    "marginRight": "auto",
+    "border": "1px solid #1D3557",
+}
+
+const nameStyle = {
+    "width": "50%",
+    "border": "1px solid #1D3557",
+    "text-align": "left"
+}
+
+const voteStyle = {
+    "width": "20%",
+    "border": "1px solid #1D3557"
+}
+
+const winStyle = {
+    "width": "30%",
+    "border": "1px solid #1D3557"
+}
+
 class RatingsTable extends React.Component<props, state> {
     constructor(props: props) {
         super(props)
@@ -56,12 +87,13 @@ class RatingsTable extends React.Component<props, state> {
         let list: ReactElement[] = []
 
         list = this.state.characterData.map(function (item: character) {
-            let winPercentage = item.votes/item.fightAppearances
+            let winPercentage = ((item.votes/item.fightAppearances) * 100).toFixed(2)
+                  
             return (
                 <tr>
-                    <td>{item.name}</td>
-                    <td>{item.votes}</td>
-                    <td>{winPercentage}</td>
+                    <td style={nameStyle}>{item.name}</td>
+                    <td style={voteStyle}> {item.votes}</td>
+                    <td style={winStyle}>{winPercentage}</td>
                 </tr>
             )
         })
@@ -72,14 +104,13 @@ class RatingsTable extends React.Component<props, state> {
 
     render() {
         return (
-            <div>
-                RATINGS TABLE PAGE
-                <Table>
+            <div style={pageStyle}>
+                <Table style={tableStyle}>
                     <thead>
                         <tr>
-                            <th>Character</th>
-                            <th>Votes </th>
-                            <th>Win %</th>
+                            <th style={nameStyle}>Name</th>
+                            <th style={voteStyle}>Votes </th>
+                            <th style={winStyle}>Win %</th>
                         </tr>
                     </thead>
                     <tbody>
