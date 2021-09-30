@@ -5,7 +5,7 @@ switch(window.location.hostname) {
         APIURL = 'http://localhost:3000'
         break
 
-    case 'meb-fight-game-app.herokuapp.com':
+    case 'meb-fight-game.herokuapp.com':
         APIURL = 'https://meb-fight-game-app.herokuapp.com'
         break
 }
