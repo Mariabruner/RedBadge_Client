@@ -3,6 +3,7 @@ import {
     Table
 } from 'reactstrap'
 import { JsxElement } from 'typescript'
+import APIURL from '../helpers/environment'
 
 
 type props = {
@@ -67,7 +68,7 @@ class RatingsTable extends React.Component<props, state> {
     }
 
     getCharacters = () => {
-        fetch(`http://localhost:3000/character/`, {
+        fetch(`${APIURL}/character/`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",

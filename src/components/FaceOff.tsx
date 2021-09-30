@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import NewCharacter from './NewCharacter'
+import APIURL from '../helpers/environment'
 
 
 type props = {
@@ -81,7 +82,7 @@ class FaceOff extends React.Component<props, state> {
     }
 
     getAll = () => {
-        fetch(`http://localhost:3000/character/`, {
+        fetch(`${APIURL}/character/`, {
             method: 'GET',
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -137,7 +138,7 @@ class FaceOff extends React.Component<props, state> {
             }
         }
 
-        fetch(`http://localhost:3000/fight/create`, {
+        fetch(`${APIURL}/fight/create`, {
             method: "POST",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -153,7 +154,7 @@ class FaceOff extends React.Component<props, state> {
             })
 
         //update char one's fight appearances
-        fetch(`http://localhost:3000/character/updateFights/${this.state.charOneId} `, {
+        fetch(`${APIURL}/character/updateFights/${this.state.charOneId} `, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -168,7 +169,7 @@ class FaceOff extends React.Component<props, state> {
             })
 
         //udpate char two's fight appearances
-        fetch(`http://localhost:3000/character/updateFights/${this.state.charTwoId}`, {
+        fetch(`${APIURL}/character/updateFights/${this.state.charTwoId}`, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -183,7 +184,7 @@ class FaceOff extends React.Component<props, state> {
             })
 
         //update winning character's vote count
-        fetch(`http://localhost:3000/character/updateVotes/${winner}`, {
+        fetch(`${APIURL}/character/updateVotes/${winner}`, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -198,7 +199,7 @@ class FaceOff extends React.Component<props, state> {
             })
 
         //update number of face offs and winner fight count in fights table
-        fetch(`http://localhost:3000/fight/updateWins/${winner}/${this.state.charOneId}/${this.state.charTwoId}`, {
+        fetch(`${APIURL}/fight/updateWins/${winner}/${this.state.charOneId}/${this.state.charTwoId}`, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json",

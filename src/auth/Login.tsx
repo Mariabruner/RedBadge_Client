@@ -1,6 +1,7 @@
 import React from 'react'
 import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
 import { isPropertySignature } from 'typescript'
+import APIURL from '../helpers/environment'
 
 type props = {
     updateToken(sessionToken: string): void
@@ -44,7 +45,7 @@ class Login extends React.Component<props, state> {
     handleSubmit= (e: React.FormEvent) => {
         e.preventDefault()
         console.log(this.state.email, this.state.password)
-        fetch("http://localhost:3000/user/login", {
+        fetch(`${APIURL}/user/login`, {
             method: "POST",
             body: JSON.stringify({user:{email: this.state.email, password: this.state.password}}),
             headers: new Headers({

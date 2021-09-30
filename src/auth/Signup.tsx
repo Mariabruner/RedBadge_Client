@@ -2,6 +2,7 @@ import { stringify } from 'querystring'
 import React from 'react'
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import { isPropertySignature, updateShorthandPropertyAssignment } from 'typescript'
+import APIURL from '../helpers/environment'
 
 type props = {
     updateToken(sessionToken: string): void,
@@ -47,7 +48,7 @@ class Signup extends React.Component<props, state> {
     handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
 
-        fetch("http://localhost:3000/user/register", {
+        fetch(`${APIURL}/user/register`, {
             method: 'POST',
             body: JSON.stringify({user:{email: this.state.email, password: this.state.password}}),
             headers: new Headers({

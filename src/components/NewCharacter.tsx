@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react'
 import {Form, FormGroup, Label, Input, Button} from 'reactstrap'
+import APIURL from '../helpers/environment'
 
 type props = {
 
@@ -28,7 +29,7 @@ class NewCharacter extends React.Component<props, state> {
 
 
     checkAdmin = () => {
-        fetch(`http://localhost:3000/character/checkAdmin`, {
+        fetch(`${APIURL}/character/checkAdmin`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -54,7 +55,7 @@ class NewCharacter extends React.Component<props, state> {
             }
         }
 
-        fetch(`http://localhost:3000/character/create`, {
+        fetch(`${APIURL}/character/create`, {
             method: "POST",
             headers: new Headers({
                 "Content-Type": "application/json",
