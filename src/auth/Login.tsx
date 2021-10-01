@@ -15,11 +15,19 @@ type state = {
 const pageStyle = {
     "marginTop": 0,
     "font-family": "Hammersmith One",
-    "padding": "7px"
+    "padding": "7px",
+    "display" : "flex",
+    "flex-direction": "column",
 }
 
 const labelStyle = {
     "padding": "5px"
+}
+
+const inputStyle = {
+    "width": "25vw",
+    "border": "1px solid #1D3557",
+    "borderRadius": "5px"
 }
 
 const buttonStyle = {
@@ -55,7 +63,7 @@ class Login extends React.Component<props, state> {
         ) .then((data) => {
             this.props.updateToken(data.sessionToken)
 
-            if (data.message === "Incorrect email or password" || "Failed to log user in") {
+            if (data.message === "Incorrect email or password") {
                 alert(data.message)
             }
         })
@@ -69,11 +77,11 @@ class Login extends React.Component<props, state> {
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label style={labelStyle} htmlFor="username">E-Mail</Label>
-                        <Input onChange={(e) => this.setState({ email: e.target.value })} name="email" />
+                        <Input style={inputStyle} onChange={(e) => this.setState({ email: e.target.value })} name="email" />
                     </FormGroup>
                     <FormGroup>
                         <Label style={labelStyle} htmlFor="password">Password</Label>
-                        <Input type="password" onChange={(e) => this.setState({ password: e.target.value })} name="password"/>
+                        <Input style={inputStyle} type="password" onChange={(e) => this.setState({ password: e.target.value })} name="password"/>
                     </FormGroup>
                     <Button style={buttonStyle} type="submit">Login</Button>
                 </Form>

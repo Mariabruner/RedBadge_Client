@@ -3,6 +3,7 @@ import { Route, Link, Switch, BrowserRouter as Router, Redirect } from 'react-ro
 import {
     Navbar,
     NavLink,
+    NavbarBrand,
     Button
 } from 'reactstrap'
 
@@ -22,13 +23,15 @@ type state = {
 const barStyle = {
     "backgroundColor": "#E63946",
     "display": "flex",
-    "height": "6vh",
+    "justifyContent": "left",
+    "height": "7vh",
     "font-family":  "Hammersmith One"
 }
 
 const NavLinkStyle = {
     "marginLeft": "10px",
     "align-self": "center",
+    "justify-self": "left"
 }
 
 const linkStyle = {
@@ -38,7 +41,6 @@ const linkStyle = {
 
 const buttonStyle = {
     "height": "4vh",
-    "margin-left": "53vw",
     "align-self": "center",
     "color": "#1D3557",
     "backgroundColor": "#F1FAEE",
@@ -58,13 +60,14 @@ class Sitebar extends React.Component<props, state> {
     clearToken = () => {
           localStorage.clear()
           this.props.updateToken("")
+          window.location.href='/'
     }
 
     render() {
         return (
             <div>
             <Navbar style={barStyle}>
-                    <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/faceoff">Home</Link></NavLink>
+                    <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/">Home</Link></NavLink>
                     <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/ratingstable">Stats</Link></NavLink>
                     <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/newcharacter"></Link></NavLink>
                     <Button style = {buttonStyle} onClick={this.clearToken}>Logout</Button>
@@ -73,6 +76,7 @@ class Sitebar extends React.Component<props, state> {
             <Switch>
                 <Route exact path="/auth"><Auth updateToken={this.props.updateToken}/></Route>
                 <Route exact path="/faceoff"><FaceOff /></Route>
+                <Route exact path="/"><FaceOff /></Route>
                 <Route exact path="/ratingstable"><RatingsTable /></Route>
                 <Route exact path="/newcharacter"><NewCharacter /></Route>
             </Switch>

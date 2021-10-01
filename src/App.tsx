@@ -31,7 +31,7 @@ class App extends React.Component<props, state>{
 
   setView = () => {
     let display
-    if (this.state.sessionToken === "") {
+    if (this.state.sessionToken === "" || "undefined") {
       display = <Auth updateToken={this.updateToken} />
     } else display = 
     <Router>

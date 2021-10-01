@@ -34,7 +34,9 @@ const loginCard = {
     "border": "2px solid #A8DADC",
     "border-radius": "10px",
     "padding": "5px",
-    "marginTop": "10px"
+    "marginTop": "10px",
+    "display": "flex",
+    "flex-direction": "column",
 }
 
 

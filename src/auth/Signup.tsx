@@ -12,7 +12,10 @@ type props = {
 type state = {
     email: string | null,
     password: string,
-    modal: boolean
+    confirmPassword: string,
+    emailValid: boolean,
+    passwordValid: boolean,
+    confirmPasswordValid: boolean
 }
 
 const pageStyle = {
@@ -22,7 +25,14 @@ const pageStyle = {
 }
 
 const labelStyle = {
-    "padding": "5px"
+    "padding": "5px",
+    "fontSize": "20px"
+}
+
+const inputStyle = {
+    "width": "25vw",
+    "border": "1px solid #1D3557",
+    "borderRadius": "5px"
 }
 
 const buttonStyle = {
@@ -41,8 +51,11 @@ class Signup extends React.Component<props, state> {
         this.state = {
             email: "",
             password: "",
-            modal: this.props.modal
-        }
+            confirmPassword: "",
+            emailValid: false,
+            passwordValid: false,
+            confirmPasswordValid: false
+            }
     }
 
     handleSubmit = (e: React.FormEvent) => {
@@ -59,7 +72,7 @@ class Signup extends React.Component<props, state> {
         ).then((data) => {
             this.props.updateToken(data.sessionToken)
 
-            if (data.message === "Email already in use" || "Failed to register user"){
+            if (data.message === "Email already in use"){
                 alert(data.message)
             }
         })
@@ -72,13 +85,28 @@ class Signup extends React.Component<props, state> {
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                         <Label style = {labelStyle} htmlFor="username">E-Mail</Label>
-                        <Input onChange={(e) => this.setState({ email: e.target.value })} name="email" />
+                        <Input style={inputStyle} onChange={(e) => {
+                            this.setState({ email: e.target.value })
+                            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                           
+                            if (re.test(e.target.value)){
+                                console.log("valid email")
+                                this.setState({ emailValid: true })
+                            } else {
+                                console.log("please enter a valid email address")
+                                this.setState({ emailValid: false })
+                            }
+
+                        }} name="email" />
                     </FormGroup>
                     <FormGroup>
                         <Label style = {labelStyle} htmlFor="password">Password</Label>
-                        <Input type="password" onChange={(e) => this.setState({ password: e.target.value })} name="password" />
+                        <Input style={inputStyle} type="password" onChange={(e) => this.setState({ password: e.target.value })} name="password" />
+                        <br />
+                        <Label style = {labelStyle} htmlFor="password">Verify Password</Label>
+                        <Input style={inputStyle} type="password" onChange={(e) => this.setState({ confirmPassword: e.target.value })} name="password" />
                     </FormGroup>
-                    <Button style={buttonStyle} type="submit">Signup</Button>
+                    <Button style={buttonStyle} type="submit" disabled={this.state.emailValid  ? false : true}>Signup</Button>
                 </Form>
             </div>
         )
