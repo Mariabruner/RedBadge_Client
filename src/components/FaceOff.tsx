@@ -26,16 +26,16 @@ const pageStyle = {
 }
 
 const topDiv = {
-    "padding-top": "5vh",
+    "paddingTop": "5vh",
     "font-size": "35px",
     "color": "#1D3557",
     "font-family": "Black Ops One"
 }
 
 const fightStyle = {
-    "margin-top": "10vh",
+    "marginTop": "10vh",
     "display": "flex",
-    "align-content": "center",
+    "alignContent": "center",
     "font-family": "Hammersmith One"
 }
 
