@@ -44,7 +44,6 @@ class Login extends React.Component<props, state> {
 
     handleSubmit= (e: React.FormEvent) => {
         e.preventDefault()
-        console.log(this.state.email, this.state.password)
         fetch(`${APIURL}/user/login`, {
             method: "POST",
             body: JSON.stringify({user:{email: this.state.email, password: this.state.password}}),
