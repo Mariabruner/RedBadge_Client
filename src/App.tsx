@@ -20,33 +20,38 @@ class App extends React.Component<props, state>{
   constructor(props: props) {
     super(props)
     this.state = {
-      sessionToken: localStorage.getItem("token")
+      sessionToken: localStorage.getItem('token')
     }
   }
 
   updateToken = (newToken: string): void => {
     localStorage.setItem('token', newToken)
     this.setState({ sessionToken: newToken })
+    console.log(this.state.sessionToken)
   }
 
-  setView = () => {
-    let display
-    if (this.state.sessionToken === "" || "undefined") {
-      display = <Auth updateToken={this.updateToken} />
-    } else display = 
-    <Router>
-      <Sitebar updateToken={this.updateToken} />
-    </Router>
-    return (display)
+  clearToken = () => {
+    localStorage.clear()
+    this.setState({sessionToken: ""})
+  }
+
+  protectedViews = () => {
+      let display = this.state.sessionToken === localStorage.getItem('token') ? <Sitebar clickLogout={this.clearToken} updateToken={this.updateToken}/>
+      : <Auth updateToken={this.updateToken} />
+
+      return (display)
   }
 
   render() {
     return (
       <div className="App">
-        {this.setView()}
+        <Router>
+       {this.protectedViews()}
+       </Router>
       </div>
     )
   };
+
 }
 
 export default App;

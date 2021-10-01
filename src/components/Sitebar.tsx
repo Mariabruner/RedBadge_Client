@@ -13,6 +13,7 @@ import RatingsTable from './RatingsTable'
 import NewCharacter from './NewCharacter'
 
 type props = {
+    clickLogout(): void
     updateToken(sessionToken: string): void
 }
 
@@ -57,11 +58,7 @@ class Sitebar extends React.Component<props, state> {
         }
     }
 
-    clearToken = () => {
-          localStorage.clear()
-          this.props.updateToken("")
-          window.location.href='/'
-    }
+
 
     render() {
         return (
@@ -70,7 +67,7 @@ class Sitebar extends React.Component<props, state> {
                     <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/">Home</Link></NavLink>
                     <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/ratingstable">Stats</Link></NavLink>
                     <NavLink style={NavLinkStyle}><Link style={linkStyle} to="/newcharacter"></Link></NavLink>
-                    <Button style = {buttonStyle} onClick={this.clearToken}>Logout</Button>
+                    <Button style = {buttonStyle} onClick={this.props.clickLogout}>Logout</Button>
             </Navbar>
 
             <Switch>

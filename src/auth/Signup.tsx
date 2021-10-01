@@ -15,7 +15,6 @@ type state = {
     confirmPassword: string,
     emailValid: boolean,
     passwordValid: boolean,
-    confirmPasswordValid: boolean
 }
 
 const pageStyle = {
@@ -54,7 +53,6 @@ class Signup extends React.Component<props, state> {
             confirmPassword: "",
             emailValid: false,
             passwordValid: false,
-            confirmPasswordValid: false
             }
     }
 
@@ -94,7 +92,6 @@ class Signup extends React.Component<props, state> {
                                 this.setState({ emailValid: true })
                             } else {
                                 console.log("please enter a valid email address")
-                                this.setState({ emailValid: false })
                             }
 
                         }} name="email" />
@@ -103,9 +100,10 @@ class Signup extends React.Component<props, state> {
                         <Label style = {labelStyle} htmlFor="password">Password</Label>
                         <Input style={inputStyle} type="password" onChange={(e) => this.setState({ password: e.target.value })} name="password" />
                         <br />
-                        <Label style = {labelStyle} htmlFor="password">Verify Password</Label>
-                        <Input style={inputStyle} type="password" onChange={(e) => this.setState({ confirmPassword: e.target.value })} name="password" />
+                        {/* <Label style = {labelStyle} htmlFor="password">Verify Password</Label>
+                        <Input style={inputStyle} type="password" onChange={(e) => this.setState({ confirmPassword: e.target.value })} name="password" /> */}
                     </FormGroup>
+                    
                     <Button style={buttonStyle} type="submit" disabled={this.state.emailValid  ? false : true}>Signup</Button>
                 </Form>
             </div>
