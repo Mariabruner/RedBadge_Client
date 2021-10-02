@@ -236,7 +236,7 @@ class FaceOff extends React.Component<props, state> {
                             {this.state.charTwoName}
                         </div>
                         <div>
-                            {this.state.charOneImage}
+                            {this.state.charTwoImage}
                         </div>
                     </div>
                 </div>
