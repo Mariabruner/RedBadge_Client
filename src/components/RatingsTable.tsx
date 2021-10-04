@@ -311,8 +311,8 @@ class RatingsTable extends React.Component<props, state> {
                         <div style={resultsStyle}>
                             <div style={topLineStyle}>{this.state.characterOneName} and {this.state.characterTwoName} have met {fight.numFaceOffs} times:</div>
                             <hr />
-                            <div style={percentageStyle}>Character One's win percentage: {charOnePercentage}%</div>
-                            <div style={percentageStyle}>Character Two's win percentage:{charTwoPercentage}%</div>
+                            <div style={percentageStyle}>{this.state.characterOneName}'s win percentage: {charOnePercentage}%</div>
+                            <div style={percentageStyle}>{this.state.characterTwoName}'s win percentage: {charTwoPercentage}%</div>
                         </div>
                     )
                 }
