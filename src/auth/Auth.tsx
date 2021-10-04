@@ -18,7 +18,10 @@ type state = {
 const pageStyle = {
     "backgroundColor": "#A8DADC",
     "color": "#1D3557",
+    "width": "100vw",
     "height": "100vh",
+    "marginLeft": "auto",
+    "marginRight": "auto",
     "font-size": "20px",
     "marginTop": "0",
     "paddingTop": "10vh",
@@ -32,7 +35,7 @@ const loginCard = {
     "width": "75vw",
     "align-self": "center",
     "border": "2px solid #A8DADC",
-    "border-radius": "10px",
+    "borderRadius": "10px",
     "padding": "5px",
     "marginTop": "10px",
     "display": "flex",
@@ -51,12 +54,12 @@ class Auth extends React.Component<props, state> {
     render() {
         return (
             <div style={pageStyle}>
-                        Sign Up or Log In to Continue
-                        <div style = {loginCard}>
-                        <Signup updateToken={this.props.updateToken} modal={this.state.modal}/>
-                        <br />    
-                        <Login updateToken={this.props.updateToken}/>
-                        </div>
+                Sign Up or Log In to Continue
+                <div style={loginCard}>
+                    <Signup updateToken={this.props.updateToken} modal={this.state.modal} />
+                    <br />
+                    <Login updateToken={this.props.updateToken} />
+                </div>
             </div>
         )
     }

@@ -26,7 +26,8 @@ type state = {
     characterTwoName: string,
     fightInfo: fight,
     idsSwitched: boolean,
-    firstEntered: string
+    firstEntered: string,
+    errorMessage: string
 }
 
 type character = {
@@ -157,7 +158,8 @@ const formStyle = {
 }
 
 const emptyStyle = {
-    "height": "25vh"
+    "height": "25vh",
+    "backgroundColor": "#F1FAEE"
 }
 
 class RatingsTable extends React.Component<props, state> {
@@ -180,7 +182,8 @@ class RatingsTable extends React.Component<props, state> {
                 udpatedAt: "string"
             },
             idsSwitched: false,
-            firstEntered: ""
+            firstEntered: "",
+            errorMessage: ""    
         }
 
     }
@@ -237,9 +240,9 @@ class RatingsTable extends React.Component<props, state> {
             })
         }).then(
             (response) => response.json()
-        )
+        ).catch((err) => {
+        })
 
-        console.log(characterOne.id)
         const characterTwo = await fetch(`${APIURL}/character/getByName/${this.state.characterTwoName}`, {
             method: 'GET',
             headers: new Headers({
@@ -248,114 +251,116 @@ class RatingsTable extends React.Component<props, state> {
             })
         }).then(
             (response) => response.json()
-        )
-
-        console.log(characterTwo.id)
+        ).catch((err) => {
+        })
 
         let char1id
         let char2id
 
-        if (characterOne.id > characterTwo.id) {
-            char1id = characterTwo.id
-            char2id = characterOne.id
-            this.setState({ 
-                idsSwitched: true,
-             })
-            
-        } else {
-            char1id = characterOne.id
-            char2id = characterTwo.id
-            this.setState({ idsSwitched: false })
+        try {
+            if (characterOne.id > characterTwo.id) {
+                char1id = characterTwo.id
+                char2id = characterOne.id
+                this.setState({
+                    idsSwitched: true,
+                })
+
+            } else {
+                char1id = characterOne.id
+                char2id = characterTwo.id
+                this.setState({ idsSwitched: false })
+            }} catch (err) {
+                this.setState({  errorMessage: "Double check your spelling and capitalization of both characters" })
+            }
+
+            const fightInfo = await fetch(`${APIURL}/fight/find/${char1id}/${char2id}`, {
+                method: 'GET',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${this.state.accessToken}`
+                })
+            }).then(
+                (response) => response.json()
+            ).catch((err) => {
+                this.setState({ errorMessage: "These two characters have not met yet"})
+            }
+            )
+
+            this.setState({ fightInfo: fightInfo })
         }
-
-        const fightInfo = await fetch(`${APIURL}/fight/find/${char1id}/${char2id}`, {
-            method: 'GET',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                "Authorization": `Bearer ${this.state.accessToken}`
-            })
-        }).then(
-            (response) => response.json()
-        )
-
-        this.setState({ fightInfo: fightInfo })
-        console.log(fightInfo)
-
-
-    }
 
     showStatistics = () => {
-        let fight = this.state.fightInfo
+            let fight = this.state.fightInfo
 
-        if (fight.characterOneId && fight.characterTwoId !== 0) {
+            if (fight.characterOneId && fight.characterTwoId !== 0) {
 
-            let charOnePercentage = fight.characterOneWins / fight.numFaceOffs
-            let charTwoPercentage = fight.characterTwoWins / fight.numFaceOffs
+                let charOnePercentage = fight.characterOneWins / fight.numFaceOffs
+                let charTwoPercentage = fight.characterTwoWins / fight.numFaceOffs
 
-            if (this.state.idsSwitched == true) {
-                return (
-                    <div style={resultsStyle}>
-                        <div style={topLineStyle}>{this.state.characterOneName} and {this.state.characterTwoName} have met {fight.numFaceOffs} times</div>
-                        <hr />
-                        <div style={percentageStyle}>First character's win percentage: {charTwoPercentage}%</div>
-                        <div style={percentageStyle}> Second character's win percentage: {charOnePercentage}%</div>
-                    </div>
-                )
-            } else if (this.state.idsSwitched == false) {
-                return (
-                    <div style={resultsStyle}>
-                        <div style={topLineStyle}>{this.state.characterOneName} and {this.state.characterTwoName} have met {fight.numFaceOffs} times:</div>
-                        <hr />
-                        <div style={percentageStyle}>Character One's win percentage: {charOnePercentage}%</div>
-                        <div style={percentageStyle}>Character Two's win percentage:{charTwoPercentage}%</div>
-                    </div>
-                )
+                if (this.state.idsSwitched == true) {
+                    return (
+                        <div style={resultsStyle}>
+                            <div style={topLineStyle}>{this.state.characterOneName} and {this.state.characterTwoName} have met {fight.numFaceOffs} times</div>
+                            <hr />
+                            <div style={percentageStyle}>First character's win percentage: {charTwoPercentage}%</div>
+                            <div style={percentageStyle}> Second character's win percentage: {charOnePercentage}%</div>
+                        </div>
+                    )
+                } else if (this.state.idsSwitched == false) {
+                    return (
+                        <div style={resultsStyle}>
+                            <div style={topLineStyle}>{this.state.characterOneName} and {this.state.characterTwoName} have met {fight.numFaceOffs} times:</div>
+                            <hr />
+                            <div style={percentageStyle}>Character One's win percentage: {charOnePercentage}%</div>
+                            <div style={percentageStyle}>Character Two's win percentage:{charTwoPercentage}%</div>
+                        </div>
+                    )
+                }
+            } else {
+                return (<div style={pStyle}>{this.state.errorMessage}</div>)
             }
-        } else {
-            return (<div></div>)
+        }
+
+        render() {
+            return (
+                <div style={pageStyle}>
+
+                    <Table style={tableStyle}>
+                        <thead>
+                            <tr>
+                                <th style={nameStyle}>Name</th>
+                                <th style={voteStyle}>Votes </th>
+                                <th style={winStyle}>Win %</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.createTable()}
+                        </tbody>
+                    </Table>
+
+                    <div style={formStyle}>
+                        <Form onSubmit={this.handleSubmit}>
+                            <p style={pStyle}> Enter the names of two characters to view the stats between them: </p>
+                            <br />
+                            <input placeholder="First Character" style={inputStyle} onChange={(e) => this.setState({ characterOneName: e.target.value })}></input>
+                            <p style={pStyle}> vs. </p>
+                            <input placeholder="Second Character" style={inputStyle} onChange={(e) => this.setState({ characterTwoName: e.target.value })}></input>
+
+                            <br />
+                            <Button style={buttonStyle} type="submit">Submit</Button>
+
+                            {this.showStatistics()}
+                        </Form>
+                    </div>
+                    <div style={emptyStyle}></div>
+                </div>
+            )
+        }
+
+        componentDidMount() {
+            this.getCharacters()
+            this.createTable()
         }
     }
-
-    render() {
-        return (
-            <div style={pageStyle}>
-
-                <Table style={tableStyle}>
-                    <thead>
-                        <tr>
-                            <th style={nameStyle}>Name</th>
-                            <th style={voteStyle}>Votes </th>
-                            <th style={winStyle}>Win %</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.createTable()}
-                    </tbody>
-                </Table>
-
-                <div style={formStyle}>
-                    <Form onSubmit={this.handleSubmit}>
-                        <p style={pStyle}> Enter the names of two characters to view the stats between them: </p>
-                        <br />
-                        <input placeholder="First Character" style={inputStyle} onChange={(e) => this.setState({ characterOneName: e.target.value })}></input>
-                        <p style={pStyle}> vs. </p>
-                        <input placeholder="Second Character" style={inputStyle} onChange={(e) => this.setState({ characterTwoName: e.target.value })}></input>
-
-                        <br />
-                        <Button style={buttonStyle} type="submit">Submit</Button>
-
-                        {this.showStatistics()}
-                    </Form>
-                </div>
-                <div style={emptyStyle}></div>
-            </div>
-        )
-    }
-
-    componentDidMount() {
-        this.getCharacters()
-        this.createTable()
-    }
-}
 
 export default RatingsTable

@@ -76,6 +76,20 @@ class Signup extends React.Component<props, state> {
         })
     }
 
+    validEmailCheck = () => {
+        let message
+        if (this.state.emailValid) {
+            message = ""
+        } else if (this.state.email) {
+            message = "Please enter a valid email address"
+        }
+
+        return (
+            <div>{message}</div>
+        )
+    }
+
+
     render() {
         return (
             <div style={pageStyle}>
@@ -88,10 +102,10 @@ class Signup extends React.Component<props, state> {
                             const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                            
                             if (re.test(e.target.value)){
-                                console.log("valid email")
                                 this.setState({ emailValid: true })
                             } else {
                                 console.log("please enter a valid email address")
+                                this.setState({ emailValid: false})
                             }
 
                         }} name="email" />
@@ -100,11 +114,10 @@ class Signup extends React.Component<props, state> {
                         <Label style = {labelStyle} htmlFor="password">Password</Label>
                         <Input style={inputStyle} type="password" onChange={(e) => this.setState({ password: e.target.value })} name="password" />
                         <br />
-                        {/* <Label style = {labelStyle} htmlFor="password">Verify Password</Label>
-                        <Input style={inputStyle} type="password" onChange={(e) => this.setState({ confirmPassword: e.target.value })} name="password" /> */}
                     </FormGroup>
                     
                     <Button style={buttonStyle} type="submit" disabled={this.state.emailValid  ? false : true}>Signup</Button>
+                    {this.validEmailCheck()}
                 </Form>
             </div>
         )

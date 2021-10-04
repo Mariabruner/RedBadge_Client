@@ -5,6 +5,7 @@ import NewCharacter from './NewCharacter'
 import APIURL from '../helpers/environment'
 
 
+
 type props = {
 
 }
@@ -29,16 +30,21 @@ const topDiv = {
     "paddingTop": "5vh",
     "font-size": "35px",
     "color": "#1D3557",
-    "font-family": "Black Ops One"
+    "font-family": "Black Ops One",
 }
 
 const fightStyle = {
     "marginTop": "10vh",
     "display": "flex",
     "alignContent": "center",
-    "font-family": "Hammersmith One"
+    "font-family": "Hammersmith One",
 }
 
+const vsStyle = {
+    "marginTop": "20vh",
+    "marginLeft": "0px",
+    "marginRight": "0px"
+}
 
 const characterStyle = {
     "backgroundColor": "#A8DADC",
@@ -46,12 +52,13 @@ const characterStyle = {
     "marginRight": "auto",
     "marginBottom": "7vh",
     "width": "40vw",
-    "height": "25vh",
+    "height": "30vh",
     "color": "#1D3557",
     "border": "1px solid #F1FAEE",
     "borderRadius": "10px",
     "fontSize": "20px",
-    "paddingTop": "5px",
+    "display": "flex",
+    "flex-direction": "column"
 }
 
 const buttonStyle = {
@@ -65,7 +72,22 @@ const buttonStyle = {
     "padding": "3px"
 }
 
+const imageStyle = {
+    "marginTop": "5px",
+    "marginBottom": "10%",
+    "maxWidth": "80%",
+    "maxHeight": "15vh",
+    "borderRadius": "10px",
+}
 
+const nameStyle = {
+    "backgroundColor": "#1D3557",
+    "color": "#F1FAEE",
+    "marginTop": "0px",
+    "borderRadius": "10px 10px 0px 0px",
+    "paddingTop": "5px",
+    "height": "40px"
+}
 
 class FaceOff extends React.Component<props, state> {
     constructor(props: props) {
@@ -224,19 +246,22 @@ class FaceOff extends React.Component<props, state> {
                 <div style={topDiv}>Who Would Win?</div>
                 <div style={fightStyle}>
                     <div style={characterStyle} onClick={() => this.updateCharacters(this.state.charOneId)} >
-                        <div>
+                        <div style={nameStyle}>
                             {this.state.charOneName}
                         </div>
+                        <hr />
                         <div>
-                            {this.state.charOneImage}
+                        <img src = {this.state.charOneImage} alt="image unavailable" style={imageStyle}></img>
                         </div>
                     </div>
+                    <div style={vsStyle}>vs.</div>
                     <div style={characterStyle} onClick={() => this.updateCharacters(this.state.charTwoId)}>
-                        <div>
+                        <div style={nameStyle}>
                             {this.state.charTwoName}
                         </div>
-                        <div>
-                            {this.state.charTwoImage}
+                        <hr />
+                        <div >
+                            <img src = {this.state.charTwoImage} alt="image unavailable" style={imageStyle}></img>
                         </div>
                     </div>
                 </div>
