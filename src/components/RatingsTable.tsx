@@ -302,8 +302,8 @@ class RatingsTable extends React.Component<props, state> {
                         <div style={resultsStyle}>
                             <div style={topLineStyle}>{this.state.characterOneName} and {this.state.characterTwoName} have met {fight.numFaceOffs} times</div>
                             <hr />
-                            <div style={percentageStyle}>First character's win percentage: {charTwoPercentage}%</div>
-                            <div style={percentageStyle}> Second character's win percentage: {charOnePercentage}%</div>
+                            <div style={percentageStyle}>{this.state.characterTwoName}'s win percentage: {charTwoPercentage}%</div>
+                            <div style={percentageStyle}> {this.state.characterOneName}'s win percentage: {charOnePercentage}%</div>
                         </div>
                     )
                 } else if (this.state.idsSwitched == false) {
