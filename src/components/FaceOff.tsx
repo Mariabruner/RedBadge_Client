@@ -150,7 +150,7 @@ class FaceOff extends React.Component<props, state> {
     }
 
 
-    updateCharacters = (winner: number) => {
+    updateCharacters = async (winner: number) => {
         //create a new fight if one does not exist
 
         let newEntry = {
@@ -160,7 +160,7 @@ class FaceOff extends React.Component<props, state> {
             }
         }
 
-        fetch(`${APIURL}/fight/create`, {
+        await fetch(`${APIURL}/fight/create`, {
             method: "POST",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -176,7 +176,7 @@ class FaceOff extends React.Component<props, state> {
             })
 
         //update char one's fight appearances
-        fetch(`${APIURL}/character/updateFights/${this.state.charOneId} `, {
+        await fetch(`${APIURL}/character/updateFights/${this.state.charOneId} `, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -191,7 +191,7 @@ class FaceOff extends React.Component<props, state> {
             })
 
         //udpate char two's fight appearances
-        fetch(`${APIURL}/character/updateFights/${this.state.charTwoId}`, {
+        await fetch(`${APIURL}/character/updateFights/${this.state.charTwoId}`, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -206,7 +206,7 @@ class FaceOff extends React.Component<props, state> {
             })
 
         //update winning character's vote count
-        fetch(`${APIURL}/character/updateVotes/${winner}`, {
+        await fetch(`${APIURL}/character/updateVotes/${winner}`, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -221,7 +221,7 @@ class FaceOff extends React.Component<props, state> {
             })
 
         //update number of face offs and winner fight count in fights table
-        fetch(`${APIURL}/fight/updateWins/${winner}/${this.state.charOneId}/${this.state.charTwoId}`, {
+        await fetch(`${APIURL}/fight/updateWins/${winner}/${this.state.charOneId}/${this.state.charTwoId}`, {
             method: "PUT",
             headers: new Headers({
                 "Content-Type": "application/json",
