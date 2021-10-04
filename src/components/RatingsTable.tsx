@@ -294,8 +294,8 @@ class RatingsTable extends React.Component<props, state> {
 
             if (fight.characterOneId && fight.characterTwoId !== 0) {
 
-                let charOnePercentage = fight.characterOneWins / fight.numFaceOffs
-                let charTwoPercentage = fight.characterTwoWins / fight.numFaceOffs
+                let charOnePercentage = ((fight.characterOneWins / fight.numFaceOffs) * 100).toFixed(2)
+                let charTwoPercentage = ((fight.characterTwoWins / fight.numFaceOffs) * 100).toFixed(2)
 
                 if (this.state.idsSwitched == true) {
                     return (
