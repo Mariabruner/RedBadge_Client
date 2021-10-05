@@ -55,7 +55,7 @@ type fight = {
 
 const pageStyle = {
     "backgroundColor": "#F1FAEE",
-    "height": "100vh",
+    "height": "100%",
     "paddingTop": "5vh"
 }
 

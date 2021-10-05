@@ -65,7 +65,6 @@ class Sitebar extends React.Component<props, state> {
     updateToken = (newToken: string): void => {
         localStorage.setItem('token', newToken)
         this.setState({ sessionToken: newToken })
-        console.log(this.state.sessionToken)
     }
 
 

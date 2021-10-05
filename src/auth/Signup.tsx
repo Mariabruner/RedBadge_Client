@@ -104,7 +104,6 @@ class Signup extends React.Component<props, state> {
                             if (re.test(e.target.value)){
                                 this.setState({ emailValid: true })
                             } else {
-                                console.log("please enter a valid email address")
                                 this.setState({ emailValid: false})
                             }
 

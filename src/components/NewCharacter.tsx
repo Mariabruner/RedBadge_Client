@@ -13,7 +13,6 @@ type state = {
     imageURL: string
     characterType: string,
     suggestion: string,
-    verification: string
 }
 
 const pageStyle = {
@@ -71,7 +70,6 @@ class NewCharacter extends React.Component<props, state> {
             imageURL: "",
             characterType: "",
             suggestion: "",
-            verification: ""
         }
     }
 
@@ -93,7 +91,6 @@ class NewCharacter extends React.Component<props, state> {
 
     addCharacter = (e: React.FormEvent) => {
         e.preventDefault()
-        console.log(this.state.characterName, this.state.characterType, this.state.imageURL)
 
         let newEntry = {
             character: {
@@ -119,6 +116,8 @@ class NewCharacter extends React.Component<props, state> {
             })
     }
 
+
+
     render() {
 
         if (this.state.admin) {
@@ -136,6 +135,7 @@ class NewCharacter extends React.Component<props, state> {
                         </FormGroup>
                         <Button style={buttonStyle} type="submit">Submit</Button>
                     </Form>
+
                 </div>
             )
         } else {

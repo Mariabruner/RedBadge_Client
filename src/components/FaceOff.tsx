@@ -52,7 +52,8 @@ const characterStyle = {
     "marginRight": "auto",
     "marginBottom": "7vh",
     "width": "40vw",
-    "height": "30vh",
+    "minHeight": "30vh",
+    "maxHeight": "50vh",
     "color": "#1D3557",
     "border": "1px solid #F1FAEE",
     "borderRadius": "10px",
@@ -73,10 +74,10 @@ const buttonStyle = {
 }
 
 const imageStyle = {
-    "marginTop": "5px",
+    "marginTop": "0px",
     "marginBottom": "10%",
-    "maxWidth": "80%",
-    "maxHeight": "15vh",
+    "maxWidth": "90%",
+    "maxHeight": "20vh",
     "borderRadius": "10px",
 }
 
@@ -86,7 +87,7 @@ const nameStyle = {
     "marginTop": "0px",
     "borderRadius": "10px 10px 0px 0px",
     "paddingTop": "5px",
-    "height": "50px"
+    "minHeight": "50px"
 }
 
 class FaceOff extends React.Component<props, state> {

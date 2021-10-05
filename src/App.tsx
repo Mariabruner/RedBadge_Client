@@ -36,7 +36,6 @@ class App extends React.Component<props, state>{
   }
 
   protectedViews = () => {
-    console.log(this.state.sessionToken)
     let display
       display = this.state.sessionToken === localStorage.getItem('token') ? <Sitebar clickLogout={this.clearToken} updateToken={this.updateToken}/>
       : <Auth updateToken={this.updateToken} />
