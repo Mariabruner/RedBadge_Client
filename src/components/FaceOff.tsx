@@ -59,7 +59,8 @@ const characterStyle = {
     "borderRadius": "10px",
     "fontSize": "20px",
     "display": "flex",
-    "flex-direction": "column"
+    "flex-direction": "column",
+    "cursor": "pointer"
 }
 
 const buttonStyle = {
@@ -244,7 +245,7 @@ class FaceOff extends React.Component<props, state> {
         return (
             <div style={pageStyle}>
 
-                <div style={topDiv}>Who Would Win?</div>
+                <div style={topDiv}>Who Would Win in a Face Off?</div>
                 <div style={fightStyle}>
                     <div style={characterStyle} onClick={() => this.updateCharacters(this.state.charOneId)} >
                         <div style={nameStyle}>
