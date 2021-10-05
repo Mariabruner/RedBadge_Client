@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import {Form, FormGroup, Label, Input, Button, NavbarBrand} from 'reactstrap'
+import { Form, FormGroup, Label, Input, Button, NavbarBrand } from 'reactstrap'
 import APIURL from '../helpers/environment'
 
 type props = {
@@ -11,7 +11,9 @@ type state = {
     admin: boolean,
     characterName: string
     imageURL: string
-    characterType: string
+    characterType: string,
+    suggestion: string,
+    verification: string
 }
 
 const pageStyle = {
@@ -20,7 +22,7 @@ const pageStyle = {
     "display": "flex",
     "flex-direction": "column",
     "padding": "10px",
-    "font-family":  "Hammersmith One",
+    "font-family": "Hammersmith One",
     "color": "#1D3557"
 }
 
@@ -67,7 +69,9 @@ class NewCharacter extends React.Component<props, state> {
             admin: false,
             characterName: "",
             imageURL: "",
-            characterType: ""
+            characterType: "",
+            suggestion: "",
+            verification: ""
         }
     }
 
@@ -118,26 +122,26 @@ class NewCharacter extends React.Component<props, state> {
     render() {
 
         if (this.state.admin) {
-        return (
-            <div style={pageStyle}> 
-                <Form onSubmit = {this.addCharacter}>
-                <Label style={labelStyle}>Enter the information of the new character: </Label> 
-                <FormGroup style={formStyle}>
-                        <Label style={labelStyle}>New Character's Name :</Label>
-                        <Input style={inputStyle} onChange={(e) => this.setState({ characterName: e.target.value })} name="Character Name"/>
-                        <Label style={labelStyle}>New Character's Type :</Label>
-                        <Input style={inputStyle} onChange={(e) => this.setState({ characterType: e.target.value })} name="Character Name"/>
-                        <Label style={labelStyle}>New Character's Image URL :</Label>
-                        <Input style={inputStyle} onChange={(e) => this.setState({ imageURL: e.target.value })} name="Character Name"/>
-                    </FormGroup>
-                    <Button style= {buttonStyle} type="submit">Submit</Button>
-                </Form>
-            </div>
-        )
+            return (
+                <div style={pageStyle}>
+                    <Form onSubmit={this.addCharacter}>
+                        <Label style={labelStyle}>Enter the information of the new character: </Label>
+                        <FormGroup style={formStyle}>
+                            <Label style={labelStyle}>New Character's Name :</Label>
+                            <Input style={inputStyle} onChange={(e) => this.setState({ characterName: e.target.value })} name="Character Name" />
+                            <Label style={labelStyle}>New Character's Type :</Label>
+                            <Input style={inputStyle} onChange={(e) => this.setState({ characterType: e.target.value })} name="Character Name" />
+                            <Label style={labelStyle}>New Character's Image URL :</Label>
+                            <Input style={inputStyle} onChange={(e) => this.setState({ imageURL: e.target.value })} name="Character Name" />
+                        </FormGroup>
+                        <Button style={buttonStyle} type="submit">Submit</Button>
+                    </Form>
+                </div>
+            )
         } else {
             return (
-                <div style={pageStyle}> 
-                    Send your ideas for new characters to mariab2898@gmail.com!
+                <div style={pageStyle}>
+                       <p>Send in your character ideas to mariab289@gmail.com! </p>
                 </div>
             )
         }

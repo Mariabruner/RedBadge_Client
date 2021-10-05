@@ -27,7 +27,8 @@ type state = {
     fightInfo: fight,
     idsSwitched: boolean,
     firstEntered: string,
-    errorMessage: string
+    errorMessage: string,
+    sortedField: string
 }
 
 type character = {
@@ -183,7 +184,8 @@ class RatingsTable extends React.Component<props, state> {
             },
             idsSwitched: false,
             firstEntered: "",
-            errorMessage: ""    
+            errorMessage: ""   ,
+            sortedField: "name" 
         }
 
     }
@@ -205,6 +207,8 @@ class RatingsTable extends React.Component<props, state> {
 
     createTable = (): ReactNode => {
         let list: ReactElement[] = []
+
+
         list = this.state.characterData.map(function (item: character) {
             let winPercentage = ((item.votes / item.fightAppearances) * 100).toFixed(2)
 
@@ -216,6 +220,7 @@ class RatingsTable extends React.Component<props, state> {
                 </tr>
             )
         })
+        
         return list
     }
 
@@ -325,7 +330,7 @@ class RatingsTable extends React.Component<props, state> {
             return (
                 <div style={pageStyle}>
 
-                    <Table style={tableStyle}>
+                    <Table style={tableStyle} sorted={this.state.sortedField}>
                         <thead>
                             <tr>
                                 <th style={nameStyle}>Name</th>

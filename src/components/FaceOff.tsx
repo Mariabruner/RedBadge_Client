@@ -86,7 +86,7 @@ const nameStyle = {
     "marginTop": "0px",
     "borderRadius": "10px 10px 0px 0px",
     "paddingTop": "5px",
-    "height": "40px"
+    "height": "50px"
 }
 
 class FaceOff extends React.Component<props, state> {
