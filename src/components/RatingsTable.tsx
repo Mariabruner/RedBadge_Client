@@ -297,6 +297,7 @@ class RatingsTable extends React.Component<props, state> {
     showStatistics = () => {
             let fight = this.state.fightInfo
 
+            try {
             if (fight.characterOneId && fight.characterTwoId !== 0) {
 
                 let charOnePercentage = ((fight.characterOneWins / fight.numFaceOffs) * 100).toFixed(2)
@@ -307,8 +308,8 @@ class RatingsTable extends React.Component<props, state> {
                         <div style={resultsStyle}>
                             <div style={topLineStyle}>{this.state.characterOneName} and {this.state.characterTwoName} have met {fight.numFaceOffs} times</div>
                             <hr />
-                            <div style={percentageStyle}>{this.state.characterTwoName}'s win percentage: {charTwoPercentage}%</div>
-                            <div style={percentageStyle}> {this.state.characterOneName}'s win percentage: {charOnePercentage}%</div>
+                            <div style={percentageStyle}>{this.state.characterTwoName}'s win percentage: {charOnePercentage}%</div>
+                            <div style={percentageStyle}> {this.state.characterOneName}'s win percentage: {charTwoPercentage}%</div>
                         </div>
                     )
                 } else if (this.state.idsSwitched == false) {
@@ -323,7 +324,10 @@ class RatingsTable extends React.Component<props, state> {
                 }
             } else {
                 return (<div style={pStyle}>{this.state.errorMessage}</div>)
-            }
+            } 
+        } catch (err) {
+            return (<div style={pStyle}>This combination does not exist yet!</div>)
+        }
         }
 
         render() {
